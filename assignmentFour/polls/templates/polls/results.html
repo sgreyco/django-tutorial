@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Results</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css'%}">
+    <title>Question {{ question.id }} Results</title>
 </head>
 
 <body>
-    <h1>{{ question.question_text }}</h1>
+    <h1>Results of Question {{ question.id }}: {{ question.question_text }}</h1>
 
     <ul>
         {% for choice in question.choice_set.all %}
