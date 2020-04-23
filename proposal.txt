@@ -1,0 +1,3 @@
+The name of my proposed website is Myepenpal.
+
+The site is a basic email server. People can login and communicate with other users. This wouldn't be an instant messanger, but more akin to actually sending mail. On the site, users will be able to see all the messages they have received. At the moment, I don't think messages will be in chains, so it will be similar to sending actual mail or how text messages used to work. This might be a feature implemented if I can get the basics to work early enough. I wouldn't recommend the service for top secret message, as all messages get held unencrypted (for the moment) in a database, but it would be an interesting way of talking.
