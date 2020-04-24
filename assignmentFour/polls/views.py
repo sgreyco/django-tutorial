@@ -40,17 +40,19 @@ def remove_question(request, question_id):
 
 
 def add_choice(request, question_id):
+    question = Question.objects.get(id = question_id)
     choice = Choice()
-    choice.choice_text = 'choice text'
-    return HttpResponseRedirect(reverse('polls/index.html'))
+    choice.choice_text = request.POST['new_choice_text']
+    choice.question = question
+    choice.save()
+    return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
 
 
 def remove_choice(request, question_id):
-    question = Question.object.get(id = question_id)
+    question = Question.objects.get(id = question_id)
   #  question = get_object_or_404(Question, pk=question_id)
   #  selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    question.choice_set.remove(pk=request.POST['choice'])
-
+    question.choice_set.delete(pk=request.POST['choice'])
     return HttpResponseRedirect(reverse('polls:edit', args=(question.id,)))
 
 def vote(request, question_id):
