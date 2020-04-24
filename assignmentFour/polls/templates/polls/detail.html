@@ -10,13 +10,13 @@
 <body>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form name="remove" action="{% url 'polls:index' %}" method="post">
+<form name="remove" action="{% url 'polls:removeQ' %}" method="post">
     {% csrf_token %}
     <h1>{{ question.question_text }}</h1>
     <input type="submit" value="Remove Question">
 </form>
-
-<form method="post">
+<br><br>
+<form name="vote" action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
     {% for choice in question.choice_set.all %}
     <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
@@ -26,11 +26,13 @@
     <input type="submit" value="Vote">
 </form>
 
-<form name="add">
+<!--
+<form name="add_choice" action="{% url 'polls:addC' qustion.id %}" method="post">
+    {% csrf_token %}
     <input type="text" id="new_choice" value="">
     <input type="button" value="Add choice">
 </form>
-
+-->
 
 </body>
 </html>

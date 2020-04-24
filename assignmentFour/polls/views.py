@@ -25,31 +25,33 @@ class ResultsView(generic.DetailView):
     template_name = 'polls/results.html'
 
 
-def remove_choice(request, question_id):
-    """
-    :param
-    :param request:
-    :param question_id: integer
-    :return:
-    """
-    question = get_object_or_404(Question, pk=question_id)
-    selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    question.choice_set.remove(pk=request.POST['choice'])
-    removal = ""
-    # remove choice from associated question
-    return HttpResponseRedirect(reverse('polls:edit', args=(question.id,)))
-
-
 def add_question(request):
     question = Question()
     question.question_text = request.POST['new_question_text']
     question.pub_date = timezone.now()
     question.save()
-    return HttpResponseRedirect(render('polls/index.html'))
+    return HttpResponseRedirect(reverse('polls:index'))
 
-def add_choice(request):
+
+def remove_question(request, question_id):
+    question = Question.objects.get(id=question_id)
+    question.delete()
+    return HttpResponseRedirect(reverse('polls:index',))
+
+
+def add_choice(request, question_id):
     choice = Choice()
     choice.choice_text = 'choice text'
+    return HttpResponseRedirect(reverse('polls/index.html'))
+
+
+def remove_choice(request, question_id):
+    question = Question.object.get(id = question_id)
+  #  question = get_object_or_404(Question, pk=question_id)
+  #  selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    question.choice_set.remove(pk=request.POST['choice'])
+
+    return HttpResponseRedirect(reverse('polls:edit', args=(question.id,)))
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
