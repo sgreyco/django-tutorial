@@ -12,7 +12,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last 5 published questions."""
-        return Question.objects.order_by('-pub_date')
+        return Question.objects.order_by('-pub_date')[:10]
 
 
 class DetailView(generic.DetailView):
@@ -51,8 +51,8 @@ def add_choice(request, question_id):
 def remove_choice(request, question_id):
     question = Question.objects.get(id = question_id)
   #  question = get_object_or_404(Question, pk=question_id)
-  #  selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    question.choice_set.delete(pk=request.POST['choice'])
+    selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    selected_choice.delete()
     return HttpResponseRedirect(reverse('polls:edit', args=(question.id,)))
 
 def vote(request, question_id):

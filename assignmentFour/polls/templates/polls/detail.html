@@ -22,8 +22,7 @@
     <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
     <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
     <form name="remove-choice" action="{% url 'polls:removeC' question.id %}" method="post">
-        {% csrf_token %}
-        <input type="button" id="remove choice{{ forloop.counter }}" value="Remove choice"><br>
+        <input type="submit" id="remove choice{{ forloop.counter }}" value="Remove choice">
     </form>
     {% endfor %}
     <input type="submit" value="Vote">
