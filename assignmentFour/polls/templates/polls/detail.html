@@ -8,17 +8,29 @@
 </head>
 
 <body>
-<h1>{{ question.question_text }}</h1>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="{% url 'polls:vote' question.id %}" method="post">
+<form name="remove" action="{% url 'polls:index' %}" method="post">
+    {% csrf_token %}
+    <h1>{{ question.question_text }}</h1>
+    <input type="submit" value="Remove Question">
+</form>
+
+<form method="post">
     {% csrf_token %}
     {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+    <input type="button" id="remove choice{{ forloop.counter }}" value="Remove choice"><br>
     {% endfor %}
     <input type="submit" value="Vote">
 </form>
+
+<form name="add">
+    <input type="text" id="new_choice" value="">
+    <input type="button" value="Add choice">
+</form>
+
 
 </body>
 </html>

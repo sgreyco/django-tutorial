@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+    <meta charset="UTF-8">
+    <title>Edit Question {{ question.id }}</title>
+</head>
+<body>
+<h1> Question {{ question_id }}: {{ question.question_text}}</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+<form name="remove_c"action="{% url 'polls:remove_c' question.id %}" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}<br>
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}"
+           value="{{ choice.id }}">
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+    <br>
+    {% endfor %}<br><br>
+    <input type="submit" value="Remove Choice">
+</form>
+    <br><br>
+<form name="add_c">
+    <p>Enter new choice: </p>
+    <input type="text" name="new_choice" id="new_choice" value="">
+    <input type="submit" value="Add Choice">
+    <!--
+    if new_choice.value == "Enter choice":
+        return "choice not added"
+    else:
+
+    -->
+</form>
+<!-- delete choice, new line, textbox, add choice -->
+
+
+</body>
+</html>

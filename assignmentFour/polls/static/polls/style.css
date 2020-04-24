@@ -1,7 +1,10 @@
-li, a, h1 {
+li, a {
     color: blanchedalmond;
 }
 
+p {
+    color: red;
+}
 body {
     background: white url("images/background.jpg") no-repeat;
 }

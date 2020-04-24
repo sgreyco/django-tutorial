@@ -8,15 +8,30 @@
 </head>
 
 <body>
+<h1>Questions</h1>
+<p>Click on a question to vote or edit</p>
+
+
+<form action="{% url 'polls:index' %}" method="POST">
+    {% csrf_token %}
     {% if latest_question_list %}
     <ul>
         {% for question in latest_question_list %}
-            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+            <input type="submit" value="Remove">
+        </li>
         {% endfor %}
     </ul>
 
     {% else %}
-        <p>No polls are available.</p>
-    {% endif%}
+    <p>No polls are available.</p>
+    {% endif %}
+</form>
+
+<form name="add_question" action="{% url 'polls:index' %}" method="post">
+    {% csrf_token %}
+    <input type="text" id="new_question_text" value="">
+    <input type="submit" name="new_question" value="Add Question">
+</form>
 </body>
 </html>
